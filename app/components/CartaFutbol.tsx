@@ -1,101 +1,116 @@
-'use client'
-import Image from 'next/image'
-import React from 'react'
+"use client";
 
-interface Props {
-  title?: string
-  quoteLines?: string[]
-  leftSrc?: string
-  rightSrc?: string
-  photoSrc?: string
+import Image from "next/image";
+import { motion } from "framer-motion";
+
+interface CartaFutbolProps {
+  title: string;
+  subtitle: string;
+  mainImage: string;
+  leftSrc: string;
+  rightSrc: string;
 }
 
 export default function CartaFutbol({
-  title = 'FELIZ CUMPLEAÑOS PAPÁ',
-  quoteLines = [],
-  leftSrc = '/dardevil.jpg',
-  rightSrc = '/tio ben.jpg',
-  photoSrc = '/mi-padre.jpg'
-}: Props) {
-  const defaultQuote = [
-    'Un padre es una roca sólida para sus hijos,',
-    'un hombre que ha estado a su lado en los momentos más importantes,',
-    'que ha demostrado (con acciones más que con palabras) el gran amor',
-    'que tiene hacia cada uno de sus hijos.',
-    '',
-    'Es un hombre que ha trabajado duro para sacar adelante a su familia.',
-    'A veces ha ganado y a veces ha perdido, pero siempre ha estado presente, y ha seguido adelante.'
-  ]
-
-  const lines = quoteLines.length ? quoteLines : defaultQuote
-
+  title,
+  subtitle,
+  mainImage,
+  leftSrc,
+  rightSrc,
+}: CartaFutbolProps) {
   return (
-    <main
-      className="relative min-h-screen flex items-start justify-center bg-fixed bg-center bg-cover pb-safe"
-      style={{ backgroundImage: "url('/atardecer.jpg')" }}
-    >
-      {/* overlay: MÁS oscuro en mobile para mejor contraste del texto */}
-      <div className="absolute inset-0 bg-black/65 md:bg-black/35" />
+    <section className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden text-white px-4">
+      {/* Fondo de luz suave */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,transparent_70%)] pointer-events-none" />
 
-      {/* IMÁGENES LATERALES: OCULTAS EN MÓVIL */}
+      {/* IMÁGENES LATERALES */}
       <div className="hidden md:block">
-        <div className="absolute left-6 top-1/2 -translate-y-1/2 w-56 h-56 rounded-xl overflow-hidden shadow-2xl">
-          <Image src={leftSrc} alt="izquierda" width={400} height={400} style={{ objectFit: 'cover' }} />
-        </div>
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 w-56 h-56 rounded-xl overflow-hidden shadow-2xl">
-          <Image src={rightSrc} alt="derecha" width={400} height={400} style={{ objectFit: 'cover' }} />
-        </div>
-      </div>
-
-      {/* contenedor principal centrado */}
-      <div className="relative z-10 w-full max-w-3xl mx-auto px-4 py-8">
-        {/* En mobile se apila (col), en md se pone row (imagen + tarjeta) */}
-        <div className="flex flex-col md:flex-row items-center gap-6">
-
-          {/* IMAGEN PRINCIPAL: ocupa 100% ancho en mobile */}
-          <div className="w-full md:w-1/2 rounded-xl overflow-hidden shadow-xl border border-white/10">
-            <div className="relative h-56 md:h-[520px]">
+        {/* COLUMNA IZQUIERDA - DOS IMÁGENES */}
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-4">
+          {/* Primera imagen izquierda (la original) */}
+          <div
+            className="rounded-xl overflow-hidden shadow-2xl"
+            style={{ width: '280px', height: '380px' }}
+            aria-hidden
+          >
+            <div className="w-full h-full relative">
               <Image
-                src={photoSrc}
-                alt="Foto principal"
+                src={leftSrc}
+                alt="izquierda"
                 fill
-                style={{ objectFit: 'cover' }}
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="transform hover:scale-105 transition duration-700"
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                }}
               />
             </div>
           </div>
 
-          {/* TARJETA: ancho controlado en mobile */}
-          <div className="w-full md:w-1/2 flex flex-col justify-between">
-            <div className="mx-auto w-full max-w-xl bg-white/90 text-gray-800 rounded-2xl p-5 md:p-12 shadow-lg backdrop-blur-sm">
-              <h2 className="text-xl md:text-3xl font-extrabold tracking-tight text-gray-900 mb-4 text-center md:text-left">
-                <span className="block text-red-700">Un padre</span>
-                <span className="text-gray-800 text-base md:text-2xl">es una roca sólida para sus hijos</span>
-              </h2>
-
-              <div className="mt-3 md:mt-4 text-gray-700 space-y-2 leading-relaxed text-sm md:text-base text-center md:text-left">
-                {lines.map((line, i) => (
-                  <p key={i}>{line}</p>
-                ))}
-              </div>
-
-              <p className="mt-4 text-sm text-gray-600 italic text-right">— Rebeca Byler</p>
+          {/* Segunda imagen debajo - usando tio ben.jpg */}
+          <div
+            className="rounded-xl overflow-hidden shadow-2xl"
+            style={{ width: '280px', height: '380px' }}
+            aria-hidden
+          >
+            <div className="w-full h-full relative">
+              <Image
+                src="/tio ben.jpg"
+                alt="segunda imagen"
+                fill
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                }}
+              />
             </div>
+          </div>
+        </div>
 
-            {/* BANNER: en móvil es FIXED en la parte inferior (no tapa contenido por pb-safe) */}
-            <div className="w-full flex justify-center">
-              <div
-                className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-30 w-11/12 max-w-xs md:static md:w-full bg-[#b91c1c] text-white font-black text-sm md:text-3xl text-center uppercase py-2 md:py-5 rounded-lg shadow-lg"
-                style={{ letterSpacing: '1px' }}
-              >
-                {title}
-              </div>
-            </div>
-
+        {/* derecha */}
+        <div
+          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-xl overflow-hidden shadow-2xl"
+          style={{ width: '280px', height: '380px' }}
+          aria-hidden
+        >
+          <div className="w-full h-full relative">
+            <Image
+              src={rightSrc}
+              alt="derecha"
+              fill
+              style={{
+                objectFit: "cover",
+                objectPosition: "center center",
+              }}
+            />
           </div>
         </div>
       </div>
-    </main>
-  )
+
+      {/* CARTA CENTRAL */}
+      <motion.div
+        className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-lg text-center border border-white/20 shadow-2xl z-10"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        {/* Imagen principal */}
+        <div className="relative w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white/30 shadow-lg">
+          <Image
+            src={mainImage}
+            alt="principal"
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        </div>
+
+        {/* Título */}
+        <h1 className="text-4xl font-extrabold tracking-wide mb-2 text-white drop-shadow-lg">
+          {title}
+        </h1>
+
+        {/* Subtítulo */}
+        <p className="text-lg text-gray-300 font-light">{subtitle}</p>
+      </motion.div>
+    </section>
+  );
 }
