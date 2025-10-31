@@ -13,9 +13,9 @@ interface Props {
 export default function CartaFutbol({
   title = 'FELIZ CUMPLEAÑOS PAPÁ',
   quoteLines = [],
-  leftSrc = '/dardevil.jpg',   // imagen izquierda (ajusta nombre si tu archivo es otro)
-  rightSrc = '/tio ben.jpg',   // imagen derecha
-  photoSrc = '/mi-padre.jpg'   // foto principal (colócala en public/)
+  leftSrc = '/dardevil.jpg',
+  rightSrc = '/tio ben.jpg',
+  photoSrc = '/mi-padre.jpg'
 }: Props) {
   const defaultQuote = [
     'Un padre es una roca sólida para sus hijos,',
@@ -31,69 +31,63 @@ export default function CartaFutbol({
 
   return (
     <main
-      className="relative min-h-screen flex items-center justify-center bg-fixed bg-center bg-cover"
-      style={{ backgroundImage: "url('/atardecer.jpg')" }} // fondo: atardecer.jpg en public/
+      className="relative min-h-screen flex items-start justify-center bg-fixed bg-center bg-cover pb-safe"
+      style={{ backgroundImage: "url('/atardecer.jpg')" }}
     >
-      {/* capa oscura para contraste */}
-      <div className="absolute inset-0 bg-black/35" />
+      {/* overlay para contraste */}
+      <div className="absolute inset-0 bg-black/30 md:bg-black/40" />
+
+      {/* IMÁGENES LATERALES - ocultas en mobile */}
+      <div className="hidden md:block">
+        <div className="absolute left-6 top-1/2 -translate-y-1/2 w-56 h-56 rounded-xl overflow-hidden shadow-2xl">
+          <Image src={leftSrc} alt="izquierda" width={400} height={400} style={{ objectFit: 'cover' }} />
+        </div>
+        <div className="absolute right-6 top-1/2 -translate-y-1/2 w-56 h-56 rounded-xl overflow-hidden shadow-2xl">
+          <Image src={rightSrc} alt="derecha" width={400} height={400} style={{ objectFit: 'cover' }} />
+        </div>
+      </div>
 
       {/* contenedor principal */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-10">
+        {/* FLEX: column en móvil, row en md+ */}
+        <div className="flex flex-col md:flex-row items-center md:items-stretch gap-6">
 
-        {/* IMÁGENES LATERALES (position absolute) */}
-        {/* Solo se muestran en md+ para no romper el diseño en móviles */}
-        <div className="hidden md:block">
-          {/* izquierda */}
-          <div className="absolute left-6 top-1/2 -translate-y-1/2 w-44 h-44 md:w-56 md:h-56 rounded-xl overflow-hidden shadow-2xl transform -translate-x-6 hover:scale-[1.02] transition">
-            <Image src={leftSrc} alt="izquierda" width={300} height={300} style={{ objectFit: 'cover' }} />
-          </div>
-          {/* derecha */}
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 w-44 h-44 md:w-56 md:h-56 rounded-xl overflow-hidden shadow-2xl transform translate-x-6 hover:scale-[1.02] transition">
-            <Image src={rightSrc} alt="derecha" width={300} height={300} style={{ objectFit: 'cover' }} />
-          </div>
-        </div>
-
-        {/* Layout interno: imagen principal + tarjeta */}
-        <div className="flex flex-col md:flex-row gap-6 items-stretch">
-
-          {/* Imagen principal (columna izquierda en md) */}
-          <div className="md:w-1/2 w-full rounded-xl overflow-hidden shadow-2xl border border-white/20">
-            <div className="relative h-80 md:h-[520px]">
+          {/* IMAGEN PRINCIPAL: en móvil aparece arriba */}
+          <div className="w-full md:w-1/2 rounded-xl overflow-hidden shadow-2xl border border-white/10">
+            <div className="relative h-64 md:h-[520px]">
               <Image
                 src={photoSrc}
                 alt="Foto principal"
                 fill
                 style={{ objectFit: 'cover' }}
                 sizes="(min-width: 768px) 50vw, 100vw"
-                placeholder="empty"
                 className="transform hover:scale-105 transition duration-700"
               />
             </div>
           </div>
 
-          {/* Tarjeta con efecto glass */}
-          <div className="md:w-1/2 w-full flex flex-col justify-between">
-            <div className="backdrop-blur-md bg-white/80 dark:bg-black/50 rounded-xl p-8 md:p-12 shadow-lg border border-white/40">
-              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 mb-4" style={{ fontFamily: "'Lora', serif" }}>
+          {/* TARJETA: ocupa 100% en mobile y 50% en md */}
+          <div className="w-full md:w-1/2 flex flex-col justify-between">
+            <div className="mx-auto w-full md:w-auto max-w-3xl bg-white/90 text-gray-800 rounded-2xl p-6 md:p-12 shadow-lg backdrop-blur-sm">
+              <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-gray-900 mb-4 text-center md:text-left">
                 <span className="block text-red-700">Un padre</span>
-                <span className="text-gray-800 text-2xl md:text-3xl">es una roca sólida para sus hijos</span>
+                <span className="text-gray-800 text-lg md:text-2xl">es una roca sólida para sus hijos</span>
               </h2>
 
-              <div className="mt-4 text-gray-800 space-y-3 leading-relaxed text-base md:text-lg">
+              <div className="mt-4 text-gray-800 space-y-3 leading-relaxed text-sm md:text-lg text-center md:text-left">
                 {lines.map((line, i) => (
                   <p key={i}>{line}</p>
                 ))}
               </div>
 
-              <p className="mt-6 text-sm text-gray-600 italic">— Rebeca Byler</p>
+              <p className="mt-6 text-sm text-gray-600 italic text-right">— Rebeca Byler</p>
             </div>
 
-            {/* Franja inferior tipo banner */}
-            <div className="mt-6">
-              <div className="bg-[#b91c1c] rounded-b-xl px-6 py-4 md:py-6 flex items-center justify-center shadow-inner border-t-2 border-[#7f1212]">
-                <h1 className="text-2xl md:text-4xl font-black text-white tracking-wider uppercase drop-shadow-[0_14px_20px_rgba(0,0,0,0.6)]" style={{letterSpacing: '1px'}}>
-                  {title}
-                </h1>
+            {/* BANNER: en mobile es bajo el contenido (estático); en md aparece centrado/absoluto */}
+            <div className="mt-6 w-full flex justify-center">
+              <div className="w-11/12 md:w-3/4 lg:w-2/3 bg-[#b91c1c] text-white font-black text-lg md:text-3xl text-center uppercase py-3 md:py-5 rounded-lg shadow-inner drop-shadow-md"
+                   style={{ letterSpacing: '1px' }}>
+                {title}
               </div>
             </div>
 
