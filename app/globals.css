@@ -1,0 +1,65 @@
+/* Importar fuente Lora */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+
+/* Estilos globales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lora', serif;
+  background-image: url('/atardecer.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #dcdcdc; /* gris claro para el texto */
+}
+
+/* Contenedor principal */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  padding: 0 80px;
+  background-color: rgba(0, 0, 0, 0.4); /* oscurece un poco el fondo */
+}
+
+/* Contenido de texto */
+.card {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 40px;
+  width: 60%;
+  color: #f0f0f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.card h1 {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.card p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Imágenes laterales */
+.side-img {
+  width: 200px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Texto final */
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  background-color: rgba(139, 0, 0, 0.9);
+  color: white;
+  padding: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
