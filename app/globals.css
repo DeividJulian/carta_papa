@@ -63,3 +63,12 @@ body {
   font-weight: bold;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
 }
+
+/* safe-area padding para iPhone */
+:root {
+  --safe-bottom: env(safe-area-inset-bottom);
+}
+.pb-safe {
+  padding-bottom: calc(24px + var(--safe-bottom));
+}
+

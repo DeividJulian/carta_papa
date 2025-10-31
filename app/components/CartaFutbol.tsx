@@ -34,10 +34,10 @@ export default function CartaFutbol({
       className="relative min-h-screen flex items-start justify-center bg-fixed bg-center bg-cover pb-safe"
       style={{ backgroundImage: "url('/atardecer.jpg')" }}
     >
-      {/* overlay para contraste */}
-      <div className="absolute inset-0 bg-black/30 md:bg-black/40" />
+      {/* overlay: MÁS oscuro en mobile para mejor contraste del texto */}
+      <div className="absolute inset-0 bg-black/65 md:bg-black/35" />
 
-      {/* IMÁGENES LATERALES - ocultas en mobile */}
+      {/* IMÁGENES LATERALES: OCULTAS EN MÓVIL */}
       <div className="hidden md:block">
         <div className="absolute left-6 top-1/2 -translate-y-1/2 w-56 h-56 rounded-xl overflow-hidden shadow-2xl">
           <Image src={leftSrc} alt="izquierda" width={400} height={400} style={{ objectFit: 'cover' }} />
@@ -47,14 +47,14 @@ export default function CartaFutbol({
         </div>
       </div>
 
-      {/* contenedor principal */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-10">
-        {/* FLEX: column en móvil, row en md+ */}
-        <div className="flex flex-col md:flex-row items-center md:items-stretch gap-6">
+      {/* contenedor principal centrado */}
+      <div className="relative z-10 w-full max-w-3xl mx-auto px-4 py-8">
+        {/* En mobile se apila (col), en md se pone row (imagen + tarjeta) */}
+        <div className="flex flex-col md:flex-row items-center gap-6">
 
-          {/* IMAGEN PRINCIPAL: en móvil aparece arriba */}
-          <div className="w-full md:w-1/2 rounded-xl overflow-hidden shadow-2xl border border-white/10">
-            <div className="relative h-64 md:h-[520px]">
+          {/* IMAGEN PRINCIPAL: ocupa 100% ancho en mobile */}
+          <div className="w-full md:w-1/2 rounded-xl overflow-hidden shadow-xl border border-white/10">
+            <div className="relative h-56 md:h-[520px]">
               <Image
                 src={photoSrc}
                 alt="Foto principal"
@@ -66,27 +66,29 @@ export default function CartaFutbol({
             </div>
           </div>
 
-          {/* TARJETA: ocupa 100% en mobile y 50% en md */}
+          {/* TARJETA: ancho controlado en mobile */}
           <div className="w-full md:w-1/2 flex flex-col justify-between">
-            <div className="mx-auto w-full md:w-auto max-w-3xl bg-white/90 text-gray-800 rounded-2xl p-6 md:p-12 shadow-lg backdrop-blur-sm">
-              <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-gray-900 mb-4 text-center md:text-left">
+            <div className="mx-auto w-full max-w-xl bg-white/90 text-gray-800 rounded-2xl p-5 md:p-12 shadow-lg backdrop-blur-sm">
+              <h2 className="text-xl md:text-3xl font-extrabold tracking-tight text-gray-900 mb-4 text-center md:text-left">
                 <span className="block text-red-700">Un padre</span>
-                <span className="text-gray-800 text-lg md:text-2xl">es una roca sólida para sus hijos</span>
+                <span className="text-gray-800 text-base md:text-2xl">es una roca sólida para sus hijos</span>
               </h2>
 
-              <div className="mt-4 text-gray-800 space-y-3 leading-relaxed text-sm md:text-lg text-center md:text-left">
+              <div className="mt-3 md:mt-4 text-gray-700 space-y-2 leading-relaxed text-sm md:text-base text-center md:text-left">
                 {lines.map((line, i) => (
                   <p key={i}>{line}</p>
                 ))}
               </div>
 
-              <p className="mt-6 text-sm text-gray-600 italic text-right">— Rebeca Byler</p>
+              <p className="mt-4 text-sm text-gray-600 italic text-right">— Rebeca Byler</p>
             </div>
 
-            {/* BANNER: en mobile es bajo el contenido (estático); en md aparece centrado/absoluto */}
-            <div className="mt-6 w-full flex justify-center">
-              <div className="w-11/12 md:w-3/4 lg:w-2/3 bg-[#b91c1c] text-white font-black text-lg md:text-3xl text-center uppercase py-3 md:py-5 rounded-lg shadow-inner drop-shadow-md"
-                   style={{ letterSpacing: '1px' }}>
+            {/* BANNER: en móvil es FIXED en la parte inferior (no tapa contenido por pb-safe) */}
+            <div className="w-full flex justify-center">
+              <div
+                className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-30 w-11/12 max-w-xs md:static md:w-full bg-[#b91c1c] text-white font-black text-sm md:text-3xl text-center uppercase py-2 md:py-5 rounded-lg shadow-lg"
+                style={{ letterSpacing: '1px' }}
+              >
                 {title}
               </div>
             </div>
