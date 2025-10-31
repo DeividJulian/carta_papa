@@ -3,7 +3,7 @@ export default function Home() {
     <div>
       <div className="container">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <img src="/tio ben.jpg" alt="Imagen izquierda 1" className="side-img" />
+          <img src="/tio ben.jpg" alt="Imagen izquierda 1" className="side-img" style={{ width: '250px', height: 'auto' }} />
           <img src="/papa.jpg" alt="Imagen izquierda 2" className="side-img" />
         </div>
 
